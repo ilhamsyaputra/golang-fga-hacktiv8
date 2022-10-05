@@ -64,7 +64,9 @@ func UpdateOrderHandler(ctx *gin.Context) {
 	fmt.Printf("\n%+v \n", updatedOrder)
 
 	err := db.Model(&updatedOrder).Where("order_id = ?", orderId).Updates(
-		updatedOrder,
+		models.Order{
+			OrderID: uint(orderId),
+		},
 	).Error
 
 	if err != nil {

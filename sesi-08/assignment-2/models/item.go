@@ -5,5 +5,5 @@ type Item struct {
 	ItemCode    string `json:"itemCode"`
 	Description string `json:"description"`
 	Quantity    uint   `json:"quantity"`
-	OrderID     uint
+	OrderID     uint   `gorm:"foreignKey:OrderID"`
 }
