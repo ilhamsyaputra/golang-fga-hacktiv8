@@ -28,3 +28,21 @@ func CreateOrderHandler(ctx *gin.Context) {
 		"message": fmt.Sprintf("Order created!"),
 	})
 }
+
+func GetOrderHandler(ctx *gin.Context) {
+	db := database.GetDB()
+	orders := models.Order{}
+
+	err := db.Preload("Items").Find(&orders).Error
+
+	if err != nil {
+		fmt.Println("Error getting orders", err.Error())
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"status":  http.StatusOK,
+		"message": "Success retrieve orders data",
+		"order":   orders,
+	})
+}
